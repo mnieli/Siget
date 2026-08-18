@@ -1,2 +1,2 @@
-# siget
+# Siget
 Sistema de gestion de turnos médicos
