@@ -1,0 +1,17 @@
+pacientes = [
+        {"CUIT": "20-11601169-1", "Apellido": "Perez", "Nombre": "Julian", "Edad": 28},
+        {"CUIT": "20-22202279-2", "Apellido": "Gomez", "Nombre": "Maria", "Edad": 34},
+        {"CUIT": "27-33303339-3", "Apellido": "Lopez", "Nombre": "Ernestina", "Edad": 82},
+        {"CUIT": "20-44404449-4", "Apellido": "Martinez", "Nombre": "Ana Clara", "Edad": 28},
+        {"CUIT": "20-55015559-5", "Apellido": "van Rossum", "Nombre": "Guido", "Edad": 70},
+        {"CUIT": "20-62066666-6", "Apellido": "Fernandez", "Nombre": "Laura", "Edad": 67},
+        {"CUIT": "20-77707739-7", "Apellido": "Sanchez", "Nombre": "Lucas", "Edad": 38},
+        {"CUIT": "21-88938068-8", "Apellido": "Romero", "Nombre": "Sofia", "Edad": 31},
+        {"CUIT": "20-99999039-9", "Apellido": "Torres", "Nombre": "Martin", "Edad": 52},
+        {"CUIT": "20-12345678-9", "Apellido": "Ruiz", "Nombre": "Julieta", "Edad": 64},
+        {"CUIT": "20-11811317-1", "Apellido": "Perez", "Nombre": "Hipolito", "Edad": 55},
+        {"CUIT": "27-22022337-2", "Apellido": "Messi", "Nombre": "Maria", "Edad": 34},
+        {"CUIT": "20-32733317-3", "Apellido": "Lopez", "Nombre": "Pedro", "Edad": 52},
+        {"CUIT": "27-44044397-4", "Apellido": "De La Colina", "Nombre": "Ana Julia", "Edad": 58},
+        {"CUIT": "20-52855527-5", "Apellido": "Rodriguez", "Nombre": "Carlos", "Edad": 85},
+    ]
