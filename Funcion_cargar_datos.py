@@ -1,21 +1,45 @@
-import datetime 
+import re
+import datetime
+import archivoPacientes
+
 
 def buscar_cuit(pacientes):
+    """
+Objetivo:
+Parametros:
+Retorno:"""
+
+    # Esta función busca un paciente por CUIT. Si existe, lo muestra.
+    # Si no existe pero el CUIT tiene el formato correcto, lo manda a cargar.
 
     cuit = input("Ingresar CUIT del paciente: ")
 
-    for paciente in pacientes:
-        if cuit == paciente["CUIT"]:
-            print("Paciente existente:")
-            print(paciente)
-            return pacientes
+    # Chequeamos que el CUIT tenga el formato XX-XXXXXXXX-X (números separados por guiones)
+    resultado = re.findall(r"^[0-9]{2}-[0-9]{8}-[0-9]{1}$", cuit)
 
-    print("Paciente no encontrado. Se procede a cargarlo.")
-    cargar_paciente(pacientes, cuit)
+    if resultado:
+
+        # Recorremos la lista de pacientes a ver si ya está cargado
+        for paciente in pacientes:
+
+            if cuit == paciente["CUIT"]:
+                print("Paciente existente:")
+                print(paciente)
+
+                return pacientes
+
+        # Si llegamos hasta acá es porque no lo encontramos, entonces lo cargamos
+        cargar_paciente(pacientes, cuit)
+
+    else:
+        print("Formato de CUIT incorrecto.")
 
     return pacientes
 
+
 def cargar_paciente(pacientes, cuit):
+    # Esta función arma el diccionario de un paciente nuevo y lo agrega a la lista.
+    # OJO: recibe el cuit ya validado por quien la llama, acá no se vuelve a chequear el formato.
 
     paciente = {}
 
@@ -27,6 +51,7 @@ def cargar_paciente(pacientes, cuit):
 
     paciente["Edad"] = int(input("Ingresar edad: "))
 
+    # Lambda cortita para chequear si es menor de 16 (institución pediátrica)
     edad_menor = lambda x: x < 16
 
     if edad_menor(paciente["Edad"]):
@@ -39,6 +64,7 @@ def cargar_paciente(pacientes, cuit):
 
 
 def cargar_medico(medicos):
+    # Carga un médico nuevo pidiendo sus datos por teclado y lo agrega a la lista de médicos
     nombre = input("Ingresar nombre del medico: ").capitalize()
     apellido = input("Ingresar apellido del medico: ").capitalize()
     especialidad = input("Ingresar especialidad del medico: ").capitalize()
@@ -57,7 +83,7 @@ def cargar_medico(medicos):
 
 
 def mostrar_pacientes(pacientes):
-
+    # Ordena la lista de pacientes por apellido (de la A a la Z) y los imprime uno por uno
     pacientes.sort(key=lambda paciente: paciente["Apellido"])
 
     for paciente in pacientes:
@@ -66,28 +92,15 @@ def mostrar_pacientes(pacientes):
 
 def main():
 
-    
-    pacientes = [
-        {"CUIT": "20-11601169-1", "Apellido": "Perez", "Nombre": "Julian", "Edad": 28},
-        {"CUIT": "20-22202279-2", "Apellido": "Gomez", "Nombre": "Maria", "Edad": 34},
-        {"CUIT": "27-33303339-3", "Apellido": "Lopez", "Nombre": "Ernestina", "Edad": 82},
-        {"CUIT": "20-44404449-4", "Apellido": "Martinez", "Nombre": "Ana Clara", "Edad": 28},
-        {"CUIT": "20-55015559-5", "Apellido": "van Rossum", "Nombre": "Guido", "Edad": 70},
-        {"CUIT": "20-62066666-6", "Apellido": "Fernandez", "Nombre": "Laura", "Edad": 67},
-        {"CUIT": "20-77707739-7", "Apellido": "Sanchez", "Nombre": "Lucas", "Edad": 38},
-        {"CUIT": "21-88938068-8", "Apellido": "Romero", "Nombre": "Sofia", "Edad": 31},
-        {"CUIT": "20-99999039-9", "Apellido": "Torres", "Nombre": "Martin", "Edad": 52},
-        {"CUIT": "20-12345678-9", "Apellido": "Ruiz", "Nombre": "Julieta", "Edad": 64},
-        {"CUIT": "20-11811317-1", "Apellido": "Perez", "Nombre": "Hipolito", "Edad": 55},
-        {"CUIT": "27-22022337-2", "Apellido": "Messi", "Nombre": "Maria", "Edad": 34},
-        {"CUIT": "20-32733317-3", "Apellido": "Lopez", "Nombre": "Pedro", "Edad": 52},
-        {"CUIT": "27-44044397-4", "Apellido": "De La Colina", "Nombre": "Ana Julia", "Edad": 58},
-        {"CUIT": "20-52855527-5", "Apellido": "Rodriguez", "Nombre": "Carlos", "Edad": 85},
-    ]
+    # Lista de pacientes "hardcodeada" para tener datos de prueba desde el arranque
+    pacientes = []
 
     medicos = []
 
     opcion = None
+
+    # Regex de CUIT la sacamos afuera del loop para no repetirla, la reusamos en la opción 1
+    patron_cuit = r"^[0-9]{2}-[0-9]{8}-[0-9]{1}$"
 
     while opcion != -1:
 
@@ -103,6 +116,7 @@ def main():
 
         opcion_str = input("Ingresar opcion: ")
 
+        # Si lo que ingresó no es un número (ej: "hola"), no dejamos que rompa el programa
         if not opcion_str.lstrip("-").isdigit():
             print("Opción inválida, ingresar un número.")
             continue
@@ -110,7 +124,15 @@ def main():
         opcion = int(opcion_str)
 
         if opcion == 1:
-            cargar_paciente(pacientes)
+            # ACÁ ESTABA EL BUG: usaban una variable "cuit" que no existía en este scope
+            # y encima sobraba un paréntesis de cierre. Ahora pedimos el CUIT acá mismo
+            # y lo validamos antes de mandarlo a cargar_paciente.
+            cuit = input("Ingresar CUIT del paciente: ")
+
+            if re.findall(patron_cuit, cuit):
+                cargar_paciente(pacientes, cuit)
+            else:
+                print("Formato de CUIT incorrecto.")
 
         elif opcion == 2:
             buscar_cuit(pacientes)
