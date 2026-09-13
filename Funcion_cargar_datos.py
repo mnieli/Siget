@@ -1,106 +1,108 @@
 import re
-import datetime
 import archivoPacientes
+import datetime
 
 
-def buscar_cuit(pacientes):
-    """
-Objetivo:
-Parametros:
-Retorno:"""
-
-    # Esta función busca un paciente por CUIT. Si existe, lo muestra.
-    # Si no existe pero el CUIT tiene el formato correcto, lo manda a cargar.
-
-    cuit = input("Ingresar CUIT del paciente: ")
-
-    # Chequeamos que el CUIT tenga el formato XX-XXXXXXXX-X (números separados por guiones)
-    resultado = re.findall(r"^[0-9]{2}-[0-9]{8}-[0-9]{1}$", cuit)
-
-    if resultado:
-
-        # Recorremos la lista de pacientes a ver si ya está cargado
-        for paciente in pacientes:
-
-            if cuit == paciente["CUIT"]:
-                print("Paciente existente:")
-                print(paciente)
-
-                return pacientes
-
-        # Si llegamos hasta acá es porque no lo encontramos, entonces lo cargamos
-        cargar_paciente(pacientes, cuit)
-
+def buscar_cuit(Pacientes):
+    
+    CUIT = input("Ingresar CUIT del paciente: ")
+    
+    encontrado = False
+    
+    for paciente in Pacientes:
+        
+        if CUIT == paciente["CUIT"]:
+            encontrado = True
+    
+    if encontrado == True:
+        print("Paciente encontrado.")
     else:
-        print("Formato de CUIT incorrecto.")
+        print("Paciente Inexistente.")
+        opcion = int(input("Desea Cargarlo? Si = 1, No = 2:  "))
+        
+        if opcion == 1:
+            cargar_paciente(Pacientes, CUIT)
+    
+    return Pacientes
 
-    return pacientes
 
-
-def cargar_paciente(pacientes, cuit):
-    # Esta función arma el diccionario de un paciente nuevo y lo agrega a la lista.
-    # OJO: recibe el cuit ya validado por quien la llama, acá no se vuelve a chequear el formato.
+def cargar_paciente(Pacientes, CUIT):
 
     paciente = {}
 
-    paciente["CUIT"] = cuit
+    paciente["CUIT"] = CUIT
 
-    paciente["Apellido"] = input("Ingresar apellido: ").capitalize()
+    paciente["Apellido"] = input(
+        "Ingresar apellido: "
+    ).capitalize()
 
-    paciente["Nombre"] = input("Ingresar nombre del paciente: ").capitalize()
+    paciente["Nombre"] = input(
+        "Ingresar nombre del paciente: "
+    ).capitalize()
 
-    paciente["Edad"] = int(input("Ingresar edad: "))
+    paciente["Edad"] = int(
+        input("Ingresar edad: ")
+    )
 
-    # Lambda cortita para chequear si es menor de 16 (institución pediátrica)
     edad_menor = lambda x: x < 16
 
     if edad_menor(paciente["Edad"]):
+        print(
+            "Paciente menor de edad. "
+            "Se debe atender en una institución pediátrica"
+        )
+    print()
+    print("PACIENTE CARGADO EXITOSAMENTE")
+    print()
+    Pacientes.append(paciente)
 
-        print("Paciente menor de edad. Se debe atender en una institución pediátrica")
-
-    pacientes.append(paciente)
-
-    return pacientes
+    return Pacientes
 
 
-def cargar_medico(medicos):
-    # Carga un médico nuevo pidiendo sus datos por teclado y lo agrega a la lista de médicos
-    nombre = input("Ingresar nombre del medico: ").capitalize()
-    apellido = input("Ingresar apellido del medico: ").capitalize()
-    especialidad = input("Ingresar especialidad del medico: ").capitalize()
-    cuit = input("Ingresar CUIT del medico: ")
+def cargar_medico(Medicos):
+
+    nombre = input(
+        "Ingresar nombre del medico: "
+    ).capitalize()
+
+    apellido = input(
+        "Ingresar apellido del medico: "
+    ).capitalize()
+
+    especialidad = input(
+        "Ingresar especialidad del medico: "
+    ).capitalize()
+
+    cuit = input(
+        "Ingresar CUIT del medico: "
+    )
 
     medico = {
         "Nombre": nombre,
         "Apellido": apellido,
         "Especialidad": especialidad,
-        "CUIT": cuit,
+        "CUIT": cuit
     }
 
-    medicos.append(medico)
+    Medicos.append(medico)
 
-    return medicos
+    return Medicos
 
 
-def mostrar_pacientes(pacientes):
-    # Ordena la lista de pacientes por apellido (de la A a la Z) y los imprime uno por uno
-    pacientes.sort(key=lambda paciente: paciente["Apellido"])
+def mostrar_Pacientes(Pacientes):
 
-    for paciente in pacientes:
+    Pacientes.sort(
+        key=lambda paciente: paciente["Apellido"]
+    )
+
+    for paciente in Pacientes:
         print(paciente)
 
 
 def main():
 
-    # Lista de pacientes "hardcodeada" para tener datos de prueba desde el arranque
-    pacientes = []
-
-    medicos = []
-
-    opcion = None
-
-    # Regex de CUIT la sacamos afuera del loop para no repetirla, la reusamos en la opción 1
-    patron_cuit = r"^[0-9]{2}-[0-9]{8}-[0-9]{1}$"
+    Pacientes = []
+    opcion = 0
 
     while opcion != -1:
 
@@ -108,46 +110,27 @@ def main():
         print(" MENU PRINCIPAL ")
         print()
         print("Opciones:")
-        print(" Opcion 1 : cargar paciente. ")
-        print(" Opcion 2 : Ingresar CUIT paciente. ")
-        print(" Opcion 3 : Mostrar Pacientes. ")
-        print(" Opcion 4 : cargar medico. ")
-        print(" Opcion -1 : salir. ")
+        print(" Opcion 1: Ingresar CUIT paciente.")
+        print(" Opcion 2: Mostrar Lista de Pacientes en Orden Alfabetico.")
+        print(" Opcion -1: Salir.")
 
-        opcion_str = input("Ingresar opcion: ")
-
-        # Si lo que ingresó no es un número (ej: "hola"), no dejamos que rompa el programa
-        if not opcion_str.lstrip("-").isdigit():
-            print("Opción inválida, ingresar un número.")
-            continue
-
-        opcion = int(opcion_str)
+        opcion = int(input("Ingresar opcion: "))
 
         if opcion == 1:
-            # ACÁ ESTABA EL BUG: usaban una variable "cuit" que no existía en este scope
-            # y encima sobraba un paréntesis de cierre. Ahora pedimos el CUIT acá mismo
-            # y lo validamos antes de mandarlo a cargar_paciente.
-            cuit = input("Ingresar CUIT del paciente: ")
 
-            if re.findall(patron_cuit, cuit):
-                cargar_paciente(pacientes, cuit)
-            else:
-                print("Formato de CUIT incorrecto.")
+            buscar_cuit(Pacientes)
 
         elif opcion == 2:
-            buscar_cuit(pacientes)
 
-        elif opcion == 3:
-            mostrar_pacientes(pacientes)
-
-        elif opcion == 4:
-            cargar_medico(medicos)
+            mostrar_Pacientes(Pacientes)
 
         elif opcion == -1:
+
             print("Fin del programa...")
 
         else:
-            print("Opción no válida.")
+
+            print("Opcion incorrecta")
 
 
 main()
