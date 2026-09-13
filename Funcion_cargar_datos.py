@@ -4,7 +4,11 @@ import datetime
 
 
 def buscar_cuit(Pacientes):
-    
+    """
+    Objetivo: Buscar un paciente por su CUIT
+    Parametros: Pacientes (lista de diccionarios)
+    Retorno: Lista de pacientes encontrados
+    """
     CUIT = input("Ingresar CUIT del paciente: ")
     
     encontrado = False
@@ -23,6 +27,11 @@ def buscar_cuit(Pacientes):
 
 
 def cargar_paciente(Pacientes):
+    """
+    Objetivo: Cargar un nuevo paciente
+    Parametros: Pacientes (lista de diccionarios)
+    Retorno: Lista de pacientes actualizada
+    """
     
     CUIT = input("Ingresar CUIT del paciente: ")
     
@@ -45,6 +54,11 @@ def cargar_paciente(Pacientes):
     return Pacientes
 
 def cargar_diccionario_paciente(Pacientes, CUIT):
+    """
+    Objetivo: Cargar un nuevo paciente en la lista
+    Parametros: Pacientes (lista de diccionarios), CUIT (str)
+    Retorno: Lista de pacientes actualizada
+    """
 
     paciente = {}
 
@@ -78,6 +92,11 @@ def cargar_diccionario_paciente(Pacientes, CUIT):
 
 
 def cargar_medico(Medicos):
+    """
+    Objetivo: Cargar un nuevo médico
+    Parametros: Medicos (lista de diccionarios)
+    Retorno: Lista de médicos actualizada
+    """
 
     nombre = input(
         "Ingresar nombre del medico: "
@@ -108,7 +127,11 @@ def cargar_medico(Medicos):
 
 
 def mostrar_Pacientes(Pacientes):
-
+    """
+    Objetivo: Mostrar la lista de pacientes en orden alfabético
+    Parametros: Pacientes (lista de diccionarios)
+    Retorno: None
+    """
     Pacientes.sort(
         key=lambda paciente: paciente["Apellido"]
     )
@@ -118,7 +141,11 @@ def mostrar_Pacientes(Pacientes):
 
 
 def cargar_turno(Lista_turnos, Medicos, Pacientes):
-
+    """
+    Objetivo: Cargar un nuevo turno
+    Parametros: Lista_turnos (lista de diccionarios), Medicos (lista de diccionarios), Pacientes (lista de diccionarios)
+    Retorno: Lista de turnos actualizada
+    """
     print()
     print("CARGAR TURNO")
     print()
@@ -162,12 +189,51 @@ def cargar_turno(Lista_turnos, Medicos, Pacientes):
 
     return Lista_turnos
 
+def actualizar_paciente(Pacientes):
+    """
+    Objetivo: Actualizar los datos de un paciente existente
+    Parametros: Pacientes (lista de diccionarios)
+    Retorno: Lista de pacientes actualizada
+    """
+    CUIT = input("Ingresar CUIT del paciente a actualizar: ")
+    
+    for paciente in Pacientes:
+        if CUIT == paciente["CUIT"]:
+            print("Paciente encontrado.")
+            paciente["Apellido"] = input("Ingresar nuevo apellido: ").capitalize()
+            paciente["Nombre"] = input("Ingresar nuevo nombre: ").capitalize()
+            paciente["Edad"] = int(input("Ingresar nueva edad: "))
+            print("Paciente actualizado exitosamente.")
+            return Pacientes
+    
+    print("Paciente no encontrado.")
+    return Pacientes
 
+def eliminar_paciente(Pacientes):
+    """
+    Objetivo: Eliminar un paciente de la lista
+    Parametros: Pacientes (lista de diccionarios)
+    Retorno: Lista de pacientes actualizada
+    """
+    CUIT = input("Ingresar CUIT del paciente a eliminar: ")
+
+    for i, paciente in enumerate(Pacientes):
+        if CUIT == paciente["CUIT"]:
+            print("Paciente encontrado.")
+            del Pacientes[i]
+            print("Paciente eliminado exitosamente.")
+            return Pacientes
+
+    print("Paciente no encontrado.")
+    return Pacientes
 
 
 
 def main():
-
+    """
+    Objetivo: Mostrar el menú principal y permitir la interacción con el usuario
+    Parametros: No recibe parámetros.
+    Retorno: No retorna ningún valor"""
     Pacientes = []
     Medicos = []
     Lista_turnos = []
@@ -208,10 +274,10 @@ def main():
                 mostrar_Pacientes(Pacientes)
 
             elif opcion_paciente == 4:
-                pass
+                actualizar_paciente(Pacientes)
 
             elif opcion_paciente == 5:
-                pass
+                eliminar_paciente(Pacientes)
 
         elif opcion == 2:
 
@@ -234,10 +300,10 @@ def main():
                 mostrar_medico(Medicos)
 
             elif opcion_medico == 4:
-                pass
+                actualizar_medico(Medicos)
 
             elif opcion_medico == 5:
-                pass
+                eliminar_medico(Medicos)
 
         elif opcion == 3:
 
