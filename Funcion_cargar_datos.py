@@ -18,15 +18,33 @@ def buscar_cuit(Pacientes):
         print("Paciente encontrado.")
     else:
         print("Paciente Inexistente.")
-        opcion = int(input("Desea Cargarlo? Si = 1, No = 2:  "))
-        
-        if opcion == 1:
-            cargar_paciente(Pacientes, CUIT)
-    
+
     return Pacientes
 
 
-def cargar_paciente(Pacientes, CUIT):
+def cargar_paciente(Pacientes):
+    
+    CUIT = input("Ingresar CUIT del paciente: ")
+    
+    encontrado = False
+    
+    for paciente in Pacientes:
+        
+        if CUIT == paciente["CUIT"]:
+            encontrado = True
+    
+    if encontrado == True:
+        print("Paciente encontrado.")
+    else:
+        print("Paciente Inexistente.")
+        opcion = int(input("Desea Cargarlo? Si = 1, No = 2:  "))
+        
+        if opcion == 1:
+            cargar_diccionario_paciente(Pacientes, CUIT)
+    
+    return Pacientes
+
+def cargar_diccionario_paciente(Pacientes, CUIT):
 
     paciente = {}
 
@@ -97,7 +115,7 @@ def mostrar_Pacientes(Pacientes):
 
     for paciente in Pacientes:
         print(paciente)
-
+        
 
 def main():
 
@@ -110,19 +128,34 @@ def main():
         print(" MENU PRINCIPAL ")
         print()
         print("Opciones:")
-        print(" Opcion 1: Ingresar CUIT paciente.")
-        print(" Opcion 2: Mostrar Lista de Pacientes en Orden Alfabetico.")
-        print(" Opcion -1: Salir.")
+        print("Opcion 1: PACIENTES ")
+        print("Opcion 2: MEDICOS ")
+        print("Opcion 3: TURNOS ")
+        print("Opcion -1: Salir.")
+        print()
 
         opcion = int(input("Ingresar opcion: "))
 
         if opcion == 1:
 
-            buscar_cuit(Pacientes)
+            print(" Opcion 1: Buscar Pacientes por CUIT.")
+            print(" Opcion 2: Cargar Paciente.")
+            print(" Opcion 3: Dar Turno Paciente.")
+            print(" Opcion 4: Mostrar Lista de Pacientes en Orden Alfabetico.")
+            print(" Opcion 5: Actualizar Paciente.")
+            print(" Opcion 6: Eliminar Paciente.")
+            print()
 
-        elif opcion == 2:
+            opcion_paciente = int(input("Ingresar opcion de PACIENTES: "))
 
-            mostrar_Pacientes(Pacientes)
+            if opcion_paciente == 1:
+                buscar_cuit(Pacientes)
+
+            elif opcion_paciente == 2:
+                cargar_paciente(Pacientes)
+
+            elif opcion_paciente == 4:
+                mostrar_Pacientes(Pacientes)
 
         elif opcion == -1:
 
