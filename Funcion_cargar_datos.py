@@ -4,11 +4,11 @@ import datetime
 
 
 def buscar_cuit(Pacientes):
-        """
-Objetivo: Buscar un paciente por su CUIT
-Parametros: Pacientes (lista de diccionarios)
-Retorno: Lista de pacientes encontrados
-"""
+    """
+    Objetivo: Buscar un paciente por su CUIT
+    Parametros: Pacientes (lista de diccionarios)
+    Retorno: Lista de pacientes encontrados
+    """
 
     CUIT = input("Ingresar CUIT del paciente: ")
     
@@ -28,11 +28,11 @@ Retorno: Lista de pacientes encontrados
 
 
 def cargar_paciente(Pacientes):
-        """
-Objetivo: Cargar un nuevo paciente
-Parametros: Pacientes (lista de diccionarios)
-Retorno: Lista de pacientes actualizada
-"""
+    """
+    Objetivo: Cargar un nuevo paciente
+    Parametros: Pacientes (lista de diccionarios)
+    Retorno: Lista de pacientes actualizada
+    """
     
     CUIT = input("Ingresar CUIT del paciente: ")
     
@@ -55,11 +55,11 @@ Retorno: Lista de pacientes actualizada
     return Pacientes
 
 def cargar_diccionario_paciente(Pacientes, CUIT):
-        """
-Objetivo: Cargar un nuevo paciente en la lista
-Parametros: Pacientes (lista de diccionarios), CUIT (str)
-Retorno: Lista de pacientes actualizada
-"""
+    """
+    Objetivo: Cargar un nuevo paciente en la lista
+    Parametros: Pacientes (lista de diccionarios), CUIT (str)
+    Retorno: Lista de pacientes actualizada
+    """
 
     paciente = {}
 
@@ -93,11 +93,11 @@ Retorno: Lista de pacientes actualizada
 
 
 def cargar_medico(Medicos):
-        """
-Objetivo: Cargar un nuevo médico
-Parametros: Medicos (lista de diccionarios)
-Retorno: Lista de médicos actualizada
-"""
+    """
+    Objetivo: Cargar un nuevo médico
+    Parametros: Medicos (lista de diccionarios)
+    Retorno: Lista de médicos actualizada
+    """
 
     nombre = input(
         "Ingresar nombre del medico: "
@@ -128,11 +128,11 @@ Retorno: Lista de médicos actualizada
 
 
 def mostrar_Pacientes(Pacientes):
-        """
-Objetivo: Mostrar la lista de pacientes en orden alfabético
-Parametros: Pacientes (lista de diccionarios)
-Retorno: None
-"""
+    """
+    Objetivo: Mostrar la lista de pacientes en orden alfabético
+    Parametros: Pacientes (lista de diccionarios)
+    Retorno: None
+    """
 
     Pacientes.sort(
         key=lambda paciente: paciente["Apellido"]
@@ -142,11 +142,11 @@ Retorno: None
         print(paciente)
 
 def actualizar_paciente(Pacientes):
-        """
-Objetivo: Actualizar los datos de un paciente existente
-Parametros: Pacientes (lista de diccionarios)
-Retorno: Lista de pacientes actualizada
-"""
+    """
+    Objetivo: Actualizar los datos de un paciente existente
+    Parametros: Pacientes (lista de diccionarios)
+    Retorno: Lista de pacientes actualizada
+    """
     CUIT = input("Ingresar CUIT del paciente a actualizar: ")
     
     for paciente in Pacientes:
@@ -162,11 +162,11 @@ Retorno: Lista de pacientes actualizada
     return Pacientes
 
 def eliminar_paciente(Pacientes):
-        """
-Objetivo: Eliminar un paciente de la lista
-Parametros: Pacientes (lista de diccionarios)
-Retorno: Lista de pacientes actualizada
-"""
+    """
+    Objetivo: Eliminar un paciente de la lista
+    Parametros: Pacientes (lista de diccionarios)
+    Retorno: Lista de pacientes actualizada
+    """
     CUIT = input("Ingresar CUIT del paciente a eliminar: ")
 
     for i, paciente in enumerate(Pacientes):
@@ -181,10 +181,10 @@ Retorno: Lista de pacientes actualizada
 
 
 def main():
-        """
-Objetivo: Mostrar el menú principal y permitir la interacción con el usuario
-Parametros: No recibe parámetros.
-Retorno: No retorna ningún valor"""
+    """
+    Objetivo: Mostrar el menú principal y permitir la interacción con el usuario
+    Parametros: No recibe parámetros.
+    Retorno: No retorna ningún valor"""
 
     Pacientes = []
     opcion = 0
