@@ -4,7 +4,12 @@ import datetime
 
 
 def buscar_cuit(Pacientes):
-    
+        """
+Objetivo: Buscar un paciente por su CUIT
+Parametros: Pacientes (lista de diccionarios)
+Retorno: Lista de pacientes encontrados
+"""
+
     CUIT = input("Ingresar CUIT del paciente: ")
     
     encontrado = False
@@ -23,6 +28,11 @@ def buscar_cuit(Pacientes):
 
 
 def cargar_paciente(Pacientes):
+        """
+Objetivo: Cargar un nuevo paciente
+Parametros: Pacientes (lista de diccionarios)
+Retorno: Lista de pacientes actualizada
+"""
     
     CUIT = input("Ingresar CUIT del paciente: ")
     
@@ -45,6 +55,11 @@ def cargar_paciente(Pacientes):
     return Pacientes
 
 def cargar_diccionario_paciente(Pacientes, CUIT):
+        """
+Objetivo: Cargar un nuevo paciente en la lista
+Parametros: Pacientes (lista de diccionarios), CUIT (str)
+Retorno: Lista de pacientes actualizada
+"""
 
     paciente = {}
 
@@ -78,6 +93,11 @@ def cargar_diccionario_paciente(Pacientes, CUIT):
 
 
 def cargar_medico(Medicos):
+        """
+Objetivo: Cargar un nuevo médico
+Parametros: Medicos (lista de diccionarios)
+Retorno: Lista de médicos actualizada
+"""
 
     nombre = input(
         "Ingresar nombre del medico: "
@@ -108,6 +128,11 @@ def cargar_medico(Medicos):
 
 
 def mostrar_Pacientes(Pacientes):
+        """
+Objetivo: Mostrar la lista de pacientes en orden alfabético
+Parametros: Pacientes (lista de diccionarios)
+Retorno: None
+"""
 
     Pacientes.sort(
         key=lambda paciente: paciente["Apellido"]
@@ -118,6 +143,10 @@ def mostrar_Pacientes(Pacientes):
         
 
 def main():
+        """
+Objetivo: Mostrar el menú principal y permitir la interacción con el usuario
+Parametros: No recibe parámetros.
+Retorno: No retorna ningún valor"""
 
     Pacientes = []
     opcion = 0
