@@ -140,7 +140,45 @@ Retorno: None
 
     for paciente in Pacientes:
         print(paciente)
-        
+
+def actualizar_paciente(Pacientes):
+        """
+Objetivo: Actualizar los datos de un paciente existente
+Parametros: Pacientes (lista de diccionarios)
+Retorno: Lista de pacientes actualizada
+"""
+    CUIT = input("Ingresar CUIT del paciente a actualizar: ")
+    
+    for paciente in Pacientes:
+        if CUIT == paciente["CUIT"]:
+            print("Paciente encontrado.")
+            paciente["Apellido"] = input("Ingresar nuevo apellido: ").capitalize()
+            paciente["Nombre"] = input("Ingresar nuevo nombre: ").capitalize()
+            paciente["Edad"] = int(input("Ingresar nueva edad: "))
+            print("Paciente actualizado exitosamente.")
+            return Pacientes
+    
+    print("Paciente no encontrado.")
+    return Pacientes
+
+def eliminar_paciente(Pacientes):
+        """
+Objetivo: Eliminar un paciente de la lista
+Parametros: Pacientes (lista de diccionarios)
+Retorno: Lista de pacientes actualizada
+"""
+    CUIT = input("Ingresar CUIT del paciente a eliminar: ")
+
+    for i, paciente in enumerate(Pacientes):
+        if CUIT == paciente["CUIT"]:
+            print("Paciente encontrado.")
+            del Pacientes[i]
+            print("Paciente eliminado exitosamente.")
+            return Pacientes
+
+    print("Paciente no encontrado.")
+    return Pacientes
+
 
 def main():
         """
@@ -185,6 +223,12 @@ Retorno: No retorna ningún valor"""
 
             elif opcion_paciente == 4:
                 mostrar_Pacientes(Pacientes)
+
+            elif opcion_paciente == 5:
+                actualizar_paciente(Pacientes)
+
+            elif opcion_paciente == 6:
+                eliminar_paciente(Pacientes)
 
         elif opcion == -1:
 
