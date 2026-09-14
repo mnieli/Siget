@@ -140,54 +140,6 @@ def mostrar_Pacientes(Pacientes):
         print(paciente)
 
 
-def cargar_turno(Lista_turnos, Medicos, Pacientes):
-    """
-    Objetivo: Cargar un nuevo turno
-    Parametros: Lista_turnos (lista de diccionarios), Medicos (lista de diccionarios), Pacientes (lista de diccionarios)
-    Retorno: Lista de turnos actualizada
-    """
-    print()
-    print("CARGAR TURNO")
-    print()
-
-    medico = input("Ingresar CUIT del medico: ")
-    paciente = input("Ingresar CUIT del paciente: ")
-
-    fecha = input("Ingresar fecha DD/MM/AAAA: ")
-    hora = input("Ingresar hora HH:MM: ")
-
-    fecha_hora = datetime.datetime.strptime(
-        fecha + " " + hora,
-        "%d/%m/%Y %H:%M"
-    )
-
-    disponible = verificar_disponibilidad(
-        Lista_turnos,
-        medico,
-        fecha_hora
-    )
-
-    if disponible == True:
-
-        turno = {
-            "CUIT_medico": medico,
-            "CUIT_paciente": paciente,
-            "Fecha_hora": fecha_hora
-        }
-
-        Lista_turnos.append(turno)
-
-        print()
-        print("TURNO CARGADO EXITOSAMENTE")
-        print()
-
-    else:
-
-        print()
-        print("EL MEDICO NO ESTA DISPONIBLE EN ESE HORARIO")
-        print()
-
-    return Lista_turnos
 
 def actualizar_paciente(Pacientes):
     """
@@ -226,6 +178,74 @@ def eliminar_paciente(Pacientes):
 
     print("Paciente no encontrado.")
     return Pacientes
+
+def cargar_turno(Lista_turnos, Medicos, Pacientes):
+    """
+    Objetivo: Cargar un nuevo turno
+    Parametros: Lista_turnos (lista de diccionarios), Medicos (lista de diccionarios), Pacientes (lista de diccionarios)
+    Retorno: Lista de turnos actualizada
+    """
+    print()
+    print("CARGAR TURNO")
+    print()
+
+    
+    paciente = input("Ingresar CUIT del paciente: ")
+    medico = input("Ingresar CUIT del medico: ")
+
+    fecha = input("Ingresar fecha DD/MM/AAAA  ")
+    hora = input("Ingresar hora HH:MM   ")
+
+    fecha_hora = datetime.datetime.strptime(
+        fecha + " " + hora,
+        "%d/%m/%Y %H:%M"
+    )
+
+    disponible = verificar_disponibilidad(
+        Lista_turnos,
+        medico,
+        fecha_hora
+    )
+
+    if disponible == True:
+
+        turno = {
+            "CUIT_medico": medico,
+            "CUIT_paciente": paciente,
+            "Fecha_hora": fecha_hora
+        }
+
+        Lista_turnos.append(turno)
+
+        print()
+        print("TURNO CARGADO EXITOSAMENTE")
+        print()
+
+    else:
+
+        print()
+        print("EL MEDICO NO ESTA DISPONIBLE EN ESE HORARIO")
+        print()
+
+    return Lista_turnos
+
+
+def verificar_disponibilidad(Lista_turnos, medico, fecha_hora):
+    """
+    Objetivo: Verificar si un médico está disponible
+    en una determinada fecha y hora.
+    Parametros: Lista_turnos, medico, fecha_hora
+    Retorno: True si está disponible, False si no.
+    """
+
+    disponible = True
+
+    for turno in Lista_turnos:
+
+        if turno["CUIT_medico"] == medico and turno["Fecha_hora"] == fecha_hora:
+            disponible = False
+
+    return disponible
 
 
 
