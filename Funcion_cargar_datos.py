@@ -3,7 +3,7 @@ import archivoPacientes
 import datetime
 
 
-def buscar_cuit(Pacientes):
+def buscar_cuit_paciente(Pacientes):
     """
     Objetivo: Buscar un paciente por su CUIT
     Parametros: Pacientes (lista de diccionarios)
@@ -90,40 +90,110 @@ def cargar_diccionario_paciente(Pacientes, CUIT):
 
     return Pacientes
 
+def buscar_medico_cuit(Medicos):
+    """
+    Objetivo: Buscar un medico por su CUIT
+    Parametros: Medicos (lista de diccionarios)
+    Retorno: Lista de medicos encontrados
+    """
+    CUIT = input("Ingresar CUIT del Medico: ")
+    
+    encontrado = False
+    
+    for medico in Medicos:
+        
+        if CUIT == medico["CUIT"]:
+            encontrado = True
+    
+    if encontrado == True:
+        print("Medico encontrado.")
+    else:
+        print("Medico Inexistente.")
+
+    return Medicos
 
 def cargar_medico(Medicos):
     """
-    Objetivo: Cargar un nuevo médico
+    Objetivo: Cargar un nuevo medico
     Parametros: Medicos (lista de diccionarios)
-    Retorno: Lista de médicos actualizada
+    Retorno: Lista de medicos actualizada
     """
-
-    nombre = input(
-        "Ingresar nombre del medico: "
-    ).capitalize()
-
-    apellido = input(
-        "Ingresar apellido del medico: "
-    ).capitalize()
-
-    especialidad = input(
-        "Ingresar especialidad del medico: "
-    ).capitalize()
-
-    cuit = input(
-        "Ingresar CUIT del medico: "
-    )
-
-    medico = {
-        "Nombre": nombre,
-        "Apellido": apellido,
-        "Especialidad": especialidad,
-        "CUIT": cuit
-    }
-
-    Medicos.append(medico)
-
+    
+    CUIT = input("Ingresar CUIT del medico: ")
+    
+    encontrado = False
+    
+    for medico in Medicos:
+        
+        if CUIT == medico["CUIT"]:
+            encontrado = True
+    
+    if encontrado == True:
+        print("Medico encontrado.")
+    else:
+        print("Medico Inexistente.")
+        opcion = int(input("Desea Cargarlo? Si = 1, No = 2:  "))
+        
+        if opcion == 1:
+            cargar_diccionario_medico(Medicos, CUIT)
+    
     return Medicos
+
+def cargar_diccionario_medico(Medicos,CUIT):
+	"""
+	Objetivo: Cargar un nuevo médico
+	Parametros: Medicos (lista de diccionarios)
+	Retorno: Lista de médicos actualizada
+	"""
+	medico = {}
+	medico["CUIT"] = CUIT
+	
+	medico["Apellido"] = input(
+		"Ingresar apellido del medico: "
+	).capitalize()
+	
+	medico["Nombre"] = input(
+		"Ingresar nombre del medico: "
+	).capitalize()
+	medico["especialidad"] = input(
+		"Ingresar especialidad del medico: "
+	).capitalize()
+	
+	print()
+	print("MEDICO CARGADO EXITOSAMENTE")
+	print()
+	
+	Medicos.append(medico)
+
+	return Medicos
+
+def cargar_diccionario_medico(Medicos, CUIT):
+	"""
+	Objetivo: Cargar un nuevo médico
+	Parametros: Medicos (lista de diccionarios)
+	Retorno: Lista de médicos actualizada
+	"""
+	medico = {}
+	medico["CUIT"] = CUIT
+	
+	medico["Apellido"] = input(
+		"Ingresar apellido del medico: "
+	).capitalize()
+	
+	medico["Nombre"] = input(
+		"Ingresar nombre del medico: "
+	).capitalize()
+	medico["especialidad"] = input(
+		"Ingresar especialidad del medico: "
+	).capitalize()
+	
+	print()
+	print("MEDICO CARGADO EXITOSAMENTE")
+	print()
+	
+	Medicos.append(medico)
+
+	return Medicos
 
 
 def mostrar_Pacientes(Pacientes):
