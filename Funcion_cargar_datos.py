@@ -195,6 +195,20 @@ def cargar_diccionario_medico(Medicos, CUIT):
 
 	return Medicos
 
+def mostrar_medico(Medicos):
+    """
+    Objetivo: Mostrar la lista de medicos en orden alfabético
+    Parametros: Medicos (lista de diccionarios)
+    Retorno: None
+    """
+    Medicos.sort(
+        key=lambda medico: medico["Apellido"]
+    )
+
+    for medico in Medicos:
+        print(medico)
+
+
 
 def mostrar_Pacientes(Pacientes):
     """
