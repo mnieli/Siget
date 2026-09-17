@@ -195,6 +195,20 @@ def cargar_diccionario_medico(Medicos, CUIT):
 
 	return Medicos
 
+def mostrar_medico(Medicos):
+    """
+    Objetivo: Mostrar la lista de medicos en orden alfabético
+    Parametros: Medicos (lista de diccionarios)
+    Retorno: None
+    """
+    Medicos.sort(
+        key=lambda medico: medico["Apellido"]
+    )
+
+    for medico in Medicos:
+        print(medico)
+
+
 
 def mostrar_Pacientes(Pacientes):
     """
@@ -208,6 +222,24 @@ def mostrar_Pacientes(Pacientes):
 
     for paciente in Pacientes:
         print(paciente)
+
+def eliminar_medico(Medicos):
+    """
+    Objetivo: Eliminar un medico de la lista
+    Parametros: Medicos (lista de diccionarios)
+    Retorno: Lista de medicos actualizada
+    """
+    CUIT = input("Ingresar CUIT del medico a eliminar: ")
+
+    for i, medico in enumerate(Medicos):
+        if CUIT == medico["CUIT"]:
+            print("Medico encontrado.")
+            del Medicos[i]
+            print("Medico eliminado exitosamente.")
+            return Medicos
+
+    print("Medico no encontrado.")
+    return Medicos
 
 
 
